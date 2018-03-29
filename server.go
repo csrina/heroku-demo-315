@@ -41,7 +41,7 @@ func getName(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("error"))
 			return
 		}
-	w.Write([]byte("REad from db:"+ first))
+	w.Write([]byte("Read from db:"+ first + "\n"))
 
 	}
 }
