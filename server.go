@@ -1,30 +1,47 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/gorilla/mux"
 )
 
-func rootHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	w.WriteHeader(http.StatusOK)
-	data, err := ioutil.ReadFile("index.html")
-	if err != nil {
-		panic(err)
-	}
-	w.Header().Set("Content-Length", fmt.Sprint(len(data)))
-	fmt.Fprint(w, string(data))
+func createRouter() *mux.Router {
+	r := mux.NewRouter()
+	r.HandleFunc("/", serveIndex).Methods("GET")
+	r.HandleFunc("/cat", serveCat).Methods("GET")
+	r.HandleFunc("/dance", serveDance).Methods("GET")
+	r.HandleFunc("/what", serveHack).Methods("GET")
+
+	return r
+}
+
+func serveIndex(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "index.html")
+}
+
+func serveCat(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "cat.html")
+}
+
+func serveDance(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "dance.html")
+}
+
+func serveHack(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "hack.html")
 }
 
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		log.Fatal("$PORT must be set")
+		port = "8080"
+		// log.Fatal("$PORT must be set")
 	}
-	http.HandleFunc("/", rootHandler)
+	r := createRouter()
+	http.Handle("/", r)
 	log.Println("starting server.")
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
