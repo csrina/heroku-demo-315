@@ -2,14 +2,21 @@
 	"ImportPath": "github.com/csrina/heroku-demo-315",
 	"GoVersion": "go1.9",
 	"GodepVersion": "v80",
-	"Packages": [
-		"."
-	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/gorilla/mux",
 			"Comment": "v1.6.1-12-g07ba1fd",
 			"Rev": "07ba1fd60e210dc5cc6f86ec25dc9ecc7c95c295"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "go1.0-cutoff-203-g88edab0",
+			"Rev": "88edab0803230a3898347e77b474f8c1820a1f20"
+		},
+		{
+			"ImportPath": "github.com/lib/pq/oid",
+			"Comment": "go1.0-cutoff-203-g88edab0",
+			"Rev": "88edab0803230a3898347e77b474f8c1820a1f20"
 		}
 	]
 }
